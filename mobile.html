@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Mobile - Nova Interface Updates Oficial</title>
+    <style>
+        :root {
+            --body-bg: #dee2e6;
+            --phone-bg: #ffffff;
+            --phone-border: #333333;
+            --header-bg: #ffffff;
+            --header-border: #e9edef;
+            --text-main: #111b21;
+            --text-muted: #667781;
+            --bottom-nav-bg: #f7f9fa;
+            --bottom-nav-border: #e9edef;
+            --tab-active-pill: #e7f5e9;
+            --tab-active-icon-color: #008069;
+            --tab-inactive-icon-color: #54656f;
+            --wa-brand-green: #008069;
+            --avatar-bg: #cbd5e1;
+            --fab-open-bg: #e8f5e9;
+            --fab-open-x: #0c1a14;
+            --mini-fab-bg: #008069;
+            --mini-fab-icon: #ffffff;
+            --label-text: #111b21;
+            --overlay-color: rgba(0, 0, 0, 0.15);
+        }
+
+        [data-theme="dark"] {
+            --body-bg: #0c1317;
+            --phone-bg: #111b21;
+            --phone-border: #222c32;
+            --header-bg: #202c33;
+            --header-border: rgba(255, 255, 255, 0.05);
+            --text-main: #e9edef;
+            --text-muted: #8696a0;
+            --bottom-nav-bg: #111b21;
+            --bottom-nav-border: rgba(255, 255, 255, 0.05);
+            --tab-active-pill: #103629;
+            --tab-active-icon-color: #25D366;
+            --tab-inactive-icon-color: #8696a0;
+            --wa-brand-green: #25D366;
+            --avatar-bg: #2a3942;
+            --fab-open-bg: #0b1a14;
+            --fab-open-x: #25D366;
+            --mini-fab-bg: #25D366;
+            --mini-fab-icon: #0b1a14;
+            --label-text: #ffffff;
+            --overlay-color: rgba(0, 0, 0, 0.55);
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: var(--body-bg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+        }
+
+        .theme-switcher-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .theme-btn {
+            background-color: var(--wa-brand-green);
+            color: var(--phone-bg);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .phone-container {
+            width: 360px;
+            height: 640px;
+            background-color: var(--phone-bg);
+            border-radius: 28px;
+            position: relative;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border: 4px solid var(--phone-border);
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .header {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--header-bg);
+            color: var(--text-main);
+            border-bottom: 1px solid var(--header-border);
+            transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            z-index: 10;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-icons svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--text-muted);
+            stroke-width: 2;
+            transition: stroke 0.3s;
+        }
+
+        .content-area {
+            padding: 16px;
+            flex: 1;
+            overflow-y: auto;
+            color: var(--text-main);
+            transition: color 0.3s;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .status-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 8px 0;
+            margin-bottom: 20px;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 50px;
+            height: 50px;
+        }
+
+        .avatar-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--avatar-bg);
+            transition: background-color 0.3s;
+        }
+
+        .plus-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 18px;
+            height: 18px;
+            background-color: var(--wa-brand-green);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--phone-bg);
+            font-size: 14px;
+            font-weight: bold;
+            border: 2px solid var(--phone-bg);
+            transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+        }
+
+        .status-info-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .status-info-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+            transition: color 0.3s;
+        }
+
+        .bottom-nav {
+            height: 68px;
+            background-color: var(--bottom-nav-bg);
+            border-top: 1px solid var(--bottom-nav-border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 6px;
+            box-sizing: border-box;
+            transition: background-color 0.3s, border-color 0.3s;
+            z-index: 10;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+            width: 25%;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .tab-icon-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 56px;
+            height: 28px;
+            border-radius: 16px;
+            margin-bottom: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .tab-icon-wrapper svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: var(--text-muted);
+            stroke-width: 2;
+            transition: stroke 0.3s;
+        }
+
+        .tab-item.active {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .tab-item.active .tab-icon-wrapper {
+            background-color: var(--tab-active-pill);
+        }
+
+        .tab-item.active .tab-icon-wrapper svg {
+            stroke: var(--tab-active-icon-color);
+        }
+
+        .blur-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--overlay-color);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, background-color 0.3s;
+            z-index: 4;
+        }
+
+        .blur-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .speed-dial-container {
+            position: absolute;
+            bottom: 84px;
+            right: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .main-fab {
+            width: 60px;
+            height: 60px;
+            background-color: var(--wa-brand-green);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s;
+            padding: 0;
+        }
+
+        .main-fab svg {
+            width: 36px;
+            height: 36px;
+            transition: transform 0.3s;
+        }
+
+        .mini-fabs {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            pointer-events: none;
+        }
+
+        .mini-fab-wrapper {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            opacity: 0;
+            transform: scale(0) translate(0, 0);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+        }
+
+        .mini-fab {
+            width: 48px;
+            height: 48px;
+            background-color: var(--mini-fab-bg);
+            border-radius: 50%;
+            border: none;
+            color: var(--mini-fab-icon);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .mini-fab svg {
+            width: 22px;
+            height: 22px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+        }
+
+        .mini-fab-label {
+            color: var(--label-text);
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: color 0.3s;
+        }
+
+        .speed-dial-container.active .main-fab {
+            transform: rotate(360deg);
+            background-color: var(--fab-open-bg);
+            box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
+        }
+
+        .speed-dial-container.active .mini-fabs {
+            pointer-events: auto;
+        }
+
+        .speed-dial-container.active .mini-fab-wrapper:nth-child(1) {
+            opacity: 1;
+            transform: scale(1) translate(6px, -82px);
+        }
+
+        .speed-dial-container.active .mini-fab-wrapper:nth-child(2) {
+            opacity: 1;
+            transform: scale(1) translate(-58px, -58px);
+        }
+
+        .speed-dial-container.active .mini-fab-wrapper:nth-child(3) {
+            opacity: 1;
+            transform: scale(1) translate(-82px, 6px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="theme-switcher-container">
+        <button class="theme-btn" id="btnToggleTheme">Mudar para Modo Escuro</button>
+    </div>
+
+    <div class="phone-container">
+        <div class="blur-overlay" id="blurOverlay"></div>
+
+        <div class="header">
+            <div class="header-title">Updates</div>
+            <div class="header-icons">
+                <svg viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="5" r="1.5" fill="var(--text-muted)"></circle>
+                    <circle cx="12" cy="12" r="1.5" fill="var(--text-muted)"></circle>
+                    <circle cx="12" cy="19" r="1.5" fill="var(--text-muted)"></circle>
+                </svg>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="section-title">Status</div>
+            <div class="status-card">
+                <div class="avatar-wrapper">
+                    <div class="avatar-circle"></div>
+                    <div class="plus-badge">+</div>
+                </div>
+                <div>
+                    <div class="status-info-title">Add status</div>
+                    <div class="status-info-sub">Disappears after 24 hours</div>
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 35px;">Channels</div>
+            <div style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">
+                Stay updated on topics that matter to you. Find channels to follow below.
+            </div>
+        </div>
+
+        <div class="speed-dial-container" id="speedDialMenu">
+            <div class="mini-fabs">
+                <div class="mini-fab-wrapper">
+                    <div class="mini-fab-label">Mic</div>
+                    <button class="mini-fab" onclick="alert('Gravar áudio...')">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                            <path d="M19 10v1a7 7 0 0 1-14 0v-1M12 19v4M8 23h8"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="mini-fab-wrapper">
+                    <div class="mini-fab-label">Câmera</div>
+                    <button class="mini-fab" onclick="alert('Abrir câmera...')">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z">
+                            </path>
+                            <circle cx="12" cy="13" r="4"></circle>
+                        </svg>
+                    </button>
+                </div>
+                <div class="mini-fab-wrapper">
+                    <div class="mini-fab-label">Texto</div>
+                    <button class="mini-fab" onclick="alert('Escrever texto...')">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <button class="main-fab" id="mainFabBtn">
+                <svg viewBox="0 0 40 40" id="fabIcon">
+                    <circle cx="20" cy="20" r="7" stroke="#ffffff" stroke-width="2" fill="none" />
+                    <path d="M 20,6 A 14,14 0 1,1 11.2,9.1 M 28.5,10.1 A 14,14 0 0,1 33.7,18.5" stroke="#ffffff"
+                        stroke-width="2" fill="none" stroke-linecap="round" />
+                    <circle cx="31" cy="11" r="3.5" fill="#25D366" stroke="#ffffff" stroke-width="0.5" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="tab-item">
+                <div class="tab-icon-wrapper">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" />
+                    </svg>
+                </div>
+                <div>Chats</div>
+            </div>
+            <div class="tab-item active">
+                <div class="tab-icon-wrapper">
+                    <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M12 2a10 10 0 0 1 10 10" stroke-dasharray="3 3"></path>
+                    </svg>
+                </div>
+                <div>Updates</div>
+            </div>
+            <div class="tab-item">
+                <div class="tab-icon-wrapper">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div>Communities</div>
+            </div>
+            <div class="tab-item">
+                <div class="tab-icon-wrapper">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                        </path>
+                    </svg>
+                </div>
+                <div>Calls</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-footer" style="margin-top: 30px; text-align: center; color: var(--text-muted); font-size: 14px;">
+        <p>Created by <a href="https://github.com/RenanCCarrara996" target="_blank"
+                style="color: var(--wa-brand-green); text-decoration: none;">RCC996</a></p>
+        <p>It's a proactive prototype of the mobile interface of WhatsApp with dark and light themes. This prototype is
+            for suggestions and feedback only. It's not associated with Meta.</p>
+    </div>
+    <script>
+        const speedDialMenu = document.getElementById('speedDialMenu');
+        const mainFabBtn = document.getElementById('mainFabBtn');
+        const fabIcon = document.getElementById('fabIcon');
+        const blurOverlay = document.getElementById('blurOverlay');
+        const btnToggleTheme = document.getElementById('btnToggleTheme');
+
+        const statusSvgCode = `
+            <circle cx="20" cy="20" r="7" stroke="#ffffff" stroke-width="2" fill="none"/>
+            <path d="M 20,6 A 14,14 0 1,1 11.2,9.1 M 28.5,10.1 A 14,14 0 0,1 33.7,18.5" stroke="#ffffff" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="31" cy="11" r="3.5" fill="#25D366" stroke="#ffffff" stroke-width="0.5"/>
+        `;
+
+        const closeSvgCode = () => `
+            <line x1="13" y1="13" x2="27" y2="27" stroke="var(--fab-open-x)" stroke-width="3" stroke-linecap="round"></line>
+            <line x1="27" y1="13" x2="13" y2="27" stroke="var(--fab-open-x)" stroke-width="3" stroke-linecap="round"></line>
+        `;
+
+        function toggleMenu() {
+            speedDialMenu.classList.toggle('active');
+            blurOverlay.classList.toggle('active');
+            if (speedDialMenu.classList.contains('active')) {
+                setTimeout(() => { fabIcon.innerHTML = closeSvgCode(); }, 100);
+            } else {
+                setTimeout(() => { fabIcon.innerHTML = statusSvgCode; }, 100);
+            }
+        }
+
+        mainFabBtn.addEventListener('click', toggleMenu);
+        blurOverlay.addEventListener('click', toggleMenu);
+
+        btnToggleTheme.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                btnToggleTheme.textContent = 'Mudar para Modo Escuro';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                btnToggleTheme.textContent = 'Mudar para Modo Claro';
+            }
+            if (speedDialMenu.classList.contains('active')) {
+                fabIcon.innerHTML = closeSvgCode();
+            }
+        });
+    </script>
+</body>
+
+</html>
