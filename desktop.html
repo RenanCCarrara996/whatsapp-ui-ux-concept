@@ -357,10 +357,38 @@
             animation: micro-shake 0.5s ease-in-out;
             color: var(--wa-brand-green) !important;
         }
+
+         .back-to-hub-btn {
+            position: fixed; top: 20px; left: 20px; width: 40px; height: 40px;
+            background-color: var(--nav-sidebar, var(--wa-surface));
+            border: 1px solid var(--border-color, rgba(255,255,255,0.08));
+            border-radius: 50%; color: var(--text-muted); display: flex;
+            justify-content: center; align-items: center; text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 100; transition: all 0.2s;
+        }
+        .back-to-hub-btn svg { 
+            width: 20px;
+            height: 20px; 
+            fill: none;
+            stroke: currentColor; 
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round; 
+        }
+
+        .back-to-hub-btn:hover { 
+            color: var(--wa-brand-green, #25D366); 
+            background-color: rgba(255,255,255,0.05); 
+            transform: scale(1.05);
+        }
     </style>
 </head>
 
 <body>
+    <a href="index.html" class="back-to-hub-btn" title="Voltar para o Hub">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+    
     <!-- BOTÕES EXTERNOS DE CONTROLE -->
     <div class="controls">
         <button class="control-btn" id="btnToggleTheme">Mudar para Modo Escuro</button>
