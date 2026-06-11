@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp UI/UX Concept - Hub de Protótipos</title>
+    <style>
+        :root {
+            --bg-main: #dee2e6; --text-main: #111b21; --text-muted: #667781; --wa-brand-green: #008069;
+            --screen-mobile-grad: linear-gradient(135deg, #ffffff, #efeae2);
+            --screen-desktop-grad: linear-gradient(135deg, #f0f2f5, #efeae2);
+            --device-shell: #222222; --device-border: #464646;
+        }
+        [data-theme="dark"] {
+            --bg-main: #0c1317; --text-main: #e9edef; --text-muted: #8696a0; --wa-brand-green: #25D366;
+            --screen-mobile-grad: linear-gradient(135deg, #202c33, #111b21);
+            --screen-desktop-grad: linear-gradient(135deg, #222e35, #0b141a);
+            --device-shell: #080d0a; --device-border: #222c32;
+        }
+        body {
+            margin: 0; padding: 40px 20px; background-color: var(--bg-main); font-family: -apple-system, sans-serif;
+            color: var(--text-main); display: flex; flex-direction: column; align-items: center; min-height: 100vh; box-sizing: border-box; transition: background-color 0.3s;
+        }
+        .header-container { text-align: center; max-width: 650px; margin-bottom: 35px; }
+        .header-container h1 { font-size: 28px; font-weight: 600; margin-bottom: 12px; }
+        .header-container p { font-size: 15px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+        .theme-btn {
+            background-color: var(--wa-brand-green); color: var(--phone-bg); border: none; padding: 10px 20px; border-radius: 8px;
+            cursor: pointer; font-weight: 600; font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: background-color 0.3s;
+        }
+        .hub-grid { display: flex; gap: 40px; max-width: 900px; width: 100%; justify-content: center; align-items: flex-end; flex-wrap: wrap; margin-top: 20px; }
+        
+        /* MOLDURA SMARTPHONE */
+        .device-mobile-card {
+            width: 220px; height: 410px; background: var(--device-shell); border-radius: 35px; border: 3px solid var(--device-border);
+            padding: 7px; position: relative; box-shadow: 0 14px 28px rgba(0,0,0,0.3); transition: border-color 0.3s, background-color 0.3s;
+        }
+        .card-int { background: var(--screen-mobile-grad); height: 100%; border-radius: 25px; overflow: hidden; position: relative; }
+        .top { position: absolute; top: 0; right: 50%; transform: translate(50%, 0); width: 38%; height: 18px; background-color: var(--device-shell); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; z-index: 5; }
+        .speaker { position: absolute; top: 2px; right: 50%; transform: translate(50%, 0); width: 40%; height: 2px; border-radius: 2px; background-color: #111; }
+        .camera { position: absolute; top: 6px; right: 80%; transform: translate(50%, 0); width: 6px; height: 6px; border-radius: 50%; background-color: rgba(255, 255, 255, 0.15); }
+        .btn1, .btn2, .btn3 { position: absolute; width: 3px; background-color: var(--device-border); }
+        .btn1 { height: 40px; top: 30%; right: -5px; } .btn2 { height: 30px; top: 25%; left: -5px; } .btn3 { height: 30px; top: 34%; left: -5px; }
+        
+        /* MOLDURA MONITOR DESKTOP */
+        .device-desktop-container { display: flex; flex-direction: column; align-items: center; }
+        .device-desktop-card {
+            width: 440px; height: 290px; background: var(--device-shell); border-radius: 14px; border: 4px solid var(--device-border);
+            padding: 6px; position: relative; box-shadow: 0 14px 28px rgba(0,0,0,0.3); transition: border-color 0.3s, background-color 0.3s;
+        }
+        .desktop-int { background: var(--screen-desktop-grad); height: 100%; border-radius: 8px; overflow: hidden; position: relative; }
+        .monitor-neck { width: 50px; height: 35px; background-color: var(--device-border); margin-top: -1px; }
+        .monitor-base { width: 140px; height: 10px; background-color: var(--device-shell); border-top-left-radius: 6px; border-top-right-radius: 6px; border: 2px solid var(--device-border); border-bottom: none; }
+        
+        /* INTERAÇÃO DAS TELAS */
+        .screen-content {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 20px; box-sizing: border-box;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .screen-content h2 { font-size: 17px; margin: 0 0 6px 0; font-weight: 600; }
+        .screen-content p { font-size: 11.5px; margin: 0; line-height: 1.4; color: var(--text-muted); }
+        .device-desktop-card .screen-content h2 { font-size: 20px; }
+        .device-desktop-card .screen-content p { font-size: 12.5px; max-width: 320px; }
+        
+        .hidden-action { position: absolute; bottom: 35px; opacity: 0; transform: translateY(10px) translateX(-50%); transition: transform 0.4s ease, opacity 0.3s ease; width: 75%; text-align: center; }
+        .hub-link {
+            display: block; width: 100%; background-color: var(--wa-brand-green); color: white; text-decoration: none;
+            padding: 10px 0; border-radius: 20px; font-weight: 600; font-size: 13px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        [data-theme="dark"] .hub-link { color: #111b21; }
+        .device-mobile-card:hover .screen-content { transform: translateY(-35px); }
+        .device-desktop-card:hover .screen-content { transform: translateY(-30px); }
+        .device-mobile-card:hover .hidden-action, .device-desktop-card:hover .hidden-action { opacity: 1; transform: translateY(0) translateX(-50%); }
+        
+        .main-footer { margin-top: 45px; text-align: center; color: var(--text-muted); font-size: 13px; max-width: 520px; line-height: 1.4; }
+        .main-footer a { color: var(--wa-brand-green); text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="theme-switcher-container">
+        <button class="theme-btn" id="btnToggleTheme">Mudar para Modo Escuro</button>
+    </div>
+
+    <div class="header-container">
+        <h1>WhatsApp UI/UX Concept</h1>
+        <p>Protótipos web interativos desenvolvidos do zero para demonstrar conceitos proativos de melhoria de usabilidade e minimalismo de interface.</p>
+    </div>
+
+    <div class="hub-grid">
+        
+        <!-- CARD SMARTPHONE FÍSICO -->
+        <div class="device-mobile-card">
+            <div class="top"><div class="speaker"></div><div class="camera"></div></div>
+            <div class="btn1"></div><div class="btn2"></div><div class="btn3"></div>
+            
+            <div class="card-int">
+                <div class="screen-content">
+                    <h2>📱 Mobile</h2>
+                    <p>Unificação dos modos de criação de status em um único FAB expansível com menu radial e isolamento por desfoque de fundo.</p>
+                </div>
+                <div class="hidden-action" style="left: 50%;">
+                    <a href="mobile.html" class="hub-link">Testar Mobile</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD MONITOR DESKTOP FÍSICO -->
+        <div class="device-desktop-container">
+            <div class="device-desktop-card">
+                <div class="desktop-int">
+                    <div class="screen-content">
+                        <h2>💻 Desktop</h2>
+                        <p>Introdução de uma sidebar de conversas retrátil e colapsável para otimizar o espaço em multitarefa, acompanhada de animações físicas de notificação.</p>
+                    </div>
+                    <div class="hidden-action" style="left: 50%; width: 50%;">
+                        <a href="desktop.html" class="hub-link">Testar Desktop</a>
+                    </div>
+                </div>
+            </div>
+            <div class="monitor-neck"></div>
+            <div class="monitor-base"></div>
+        </div>
+
+    </div>
+
+    <div class="main-footer">
+        <p>Created by <a href="https://github.com" target="_blank">RCC996</a></p>
+        <p>Estes protótipos são sugestões proativas de interface e usabilidade para fins de estudo e portfólio. Não possuem qualquer afiliação ou vínculo com a Meta Platforms, Inc. ou WhatsApp.</p>
+    </div>
+
+    <script>
+        const btnToggleTheme = document.getElementById('btnToggleTheme');
+
+        // Controla o estado de renderização de cores do hub
+        btnToggleTheme.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                btnToggleTheme.textContent = 'Mudar para Modo Escuro';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                btnToggleTheme.textContent = 'Mudar para Modo Claro';
+            }
+        });
+    </script>
+</body>
+</html>
