@@ -1,7 +1,12 @@
 # 🚀 WhatsApp UI/UX Concept - Proactive Redesign (Mobile & Desktop)
 
+This repository contains independent, interactive web prototypes built from scratch to showcase proactive usability (UX) and interface (UI) improvements for both the Mobile and Desktop versions of WhatsApp.
 
-This repository contains two independent, interactive web prototypes built from scratch to showcase proactive usability (UX) and interface (UI) improvements for both the Mobile and Desktop versions of WhatsApp.
+---
+
+## 🌐 0. Hub Page & Live Demo
+
+An interactive, responsive portal (`index.html`) simulates physical hardware shells (a smartphone and a computer monitor) with layout animations and integrated theme toggles. It serves as the gateway to launch either concept dynamically.
 
 ---
 
@@ -33,10 +38,10 @@ When running the desktop application in split-screen mode (multitasking), the fi
 
 ## 🛠️ Tech Stack & Architecture
 
-The project was engineered using native web technologies to ensure lightweight execution and absolute autonomy (no framework or library dependencies):
-* **HTML5:** Semantic structuring and custom graphic paths via native SVGs to mimic the official interface.
-* **CSS3:** Custom properties (CSS variables) for multitheme management, layout depth handling, blur filters, and keyframe animations.
-* **JavaScript (Vanilla):** State management engine controlling menu expansion, dynamic SVG injection, and runtime theme switching.
+The project was engineered using native web technologies to ensure lightweight execution and absolute autonomy, adhering to Clean Code standards without framework dependencies:
+* **HTML5:** Semantic structuring, interconnected views via a unified architecture, and custom graphic paths via native SVGs to mimic the official interface.
+* **CSS3:** Custom properties (CSS variables) for multitheme management, unified depth layering (`z-index`), blur filters, and keyframe animations.
+* **JavaScript (Vanilla):** Single-responsiblity state management engines controlling menu expansion, layout collapsing, and runtime theme switching.
 
 > *Development Note: The entire UX architecture and layout mapping were conceptualized by me. Generative AI assistants (ChatGPT and Gemini) were leveraged as co-pilots to streamline code architecture and accelerate asset materialization.*
 
@@ -45,15 +50,16 @@ The project was engineered using native web technologies to ensure lightweight e
 ## 📂 How to Run the Project
 
 1. Clone or download this repository.
-2. Ensure the files (`mobile.html` and `desktop.html`) are kept in their respective folders.
-3. Double-click either file to run it directly in your web browser (Google Chrome recommended).
-4. Use the external toggle buttons at the top of the pages to switch between Light and Dark themes dynamically.
+2. Ensure the files (`index.html`, `mobile.html`, and `desktop.html`) are kept in the same root folder.
+3. Open `index.html` to access the interactive web hub directly in your browser.
+4. Use the custom back buttons (`<-`) located at the top-left of each screen to return to the hub seamlessly.
+
+---
+
+## 📢 Social Media & Discussion
+
+* **Reddit:** [r/whatsapp Post](https://www.reddit.com/r/whatsapp/comments/1u28qbq/redesign_proativo_e_interativo_do_whatsapp/)
+* **LinkedIn:** [Professional Portfolio Post](https://www.linkedin.com/posts/renan-cadamuro-carrara-32b36930a_uiux-productdesign-webdevelopment-ugcPost-7470874558011658240-ixdw/)
 
 ---
 *Disclaimer: This is an independent portfolio project and a proactive UX suggestion. It is not associated with, endorsed by, or affiliated with Meta Platforms, Inc. or WhatsApp.*
-
----
-
-## Post in Social Medias:
-* **Reddit:** https://www.reddit.com/r/whatsapp/comments/1u28qbq/redesign_proativo_e_interativo_do_whatsapp/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-* **Linkedin:** https://www.linkedin.com/posts/renan-cadamuro-carrara-32b36930a_uiux-productdesign-webdevelopment-ugcPost-7470874558011658240-ixdw/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE64KJMBSMn4cdWQZrTICI68Kx29pSHmwew
