@@ -56,4 +56,4 @@ The project was engineered using native web technologies to ensure lightweight e
 
 ## Post in Social Medias:
 * **Reddit:** https://www.reddit.com/r/whatsapp/comments/1u28qbq/redesign_proativo_e_interativo_do_whatsapp/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-* **Linkedin:** [link]
+* **Linkedin:** https://www.linkedin.com/posts/renan-cadamuro-carrara-32b36930a_uiux-productdesign-webdevelopment-ugcPost-7470874558011658240-ixdw/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE64KJMBSMn4cdWQZrTICI68Kx29pSHmwew
