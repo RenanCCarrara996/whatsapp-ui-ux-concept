@@ -51,3 +51,9 @@ The project was engineered using native web technologies to ensure lightweight e
 
 ---
 *Disclaimer: This is an independent portfolio project and a proactive UX suggestion. It is not associated with, endorsed by, or affiliated with Meta Platforms, Inc. or WhatsApp.*
+
+---
+
+## Post in Social Medias:
+* **Reddit:** https://www.reddit.com/r/whatsapp/comments/1u28qbq/redesign_proativo_e_interativo_do_whatsapp/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+* **Linkedin:** [link]
